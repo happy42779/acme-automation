@@ -17,10 +17,10 @@ if [ ! -f "$FILE" ]; then
     ehco "installing acme"
     cd ~
     git clone https://github.com/acmesh-official/acme.sh.git
+    echo "installing denpendencies"
+    apt-get install socat curl cron openssl
     ./acme.sh/acme.sh   --install
 fi
 
-echo "installing denpendencies"
-apt-get install socat curl cron openssl
 ~/.acme.sh/acme.sh --issue -d $DOMAIN --standalone
 ~/.acme.sh/acme.sh --installcert -d $DOMAIN --fullchain-file $PATH/$DOMAIN.pem --key-file $PATH/$DOMAIN.key --reloadcmd "nginx -s reload"
